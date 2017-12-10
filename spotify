@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+require 'rspotify'
+require 'selenium-webdriver'
+RSpotify::authenticate('5c44b634b493449da861e506589f5e7c', '243dbef8141e46fcbfd7905fb7d82678')
+driver = Selenium::WebDriver.for :firefox
+artists = RSpotify::Artist.search(ARGV.join(' '))
+unless artists.empty?
+  artist = artists[0]
+  driver = Selenium::WebDriver.for :firefox
+  driver.navigate.to artist.external_urls["spotify"]
+else
+  puts "Cantante no encontrado"
+end
